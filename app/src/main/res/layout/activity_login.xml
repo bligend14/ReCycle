@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="@drawable/gradient">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -55,31 +54,29 @@
             android:inputType="textPassword"
             android:paddingLeft="10dp" />
 
-        <EditText
-            android:id="@+id/CheckPasswordEditText"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:background="#80FFFFFF"
-            android:ems="10"
-            android:fontFamily="casual"
-            android:hint="CheckPassword"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp" />
-
         <Button
-            android:id="@+id/signUpButton"
+            android:id="@+id/loginButton"
             android:layout_width="300dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#80FFFFFF"
             android:fontFamily="casual"
-            android:text="Sign Up"
-            android:textColor="#000000" />
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/PasswordResetText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:text="Did you forget the password?"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,7 +89,7 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/GotoLoginText"
+            android:id="@+id/GotoSignUpText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="casual"
@@ -104,3 +101,4 @@
     </LinearLayout>
 
 </LinearLayout>
+

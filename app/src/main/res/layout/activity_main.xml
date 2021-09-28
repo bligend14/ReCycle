@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/main_edt"
+    <Button
+        android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="무엇을 적을까요?"/>
+        android:text="logout" />
 
 </LinearLayout>
