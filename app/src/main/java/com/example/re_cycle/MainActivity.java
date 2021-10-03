@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
+        findViewById(R.id.PhotoButton).setOnClickListener(onClickListener);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener()
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity
                     FirebaseAuth.getInstance().signOut();
                     GotoActivity(loginActivity.class);
                     break;
+                case  R.id.PhotoButton:
+                    GotoActivity(CameraActivity.class);
             }
         }
     };

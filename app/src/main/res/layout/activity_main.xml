@@ -13,4 +13,10 @@
         android:layout_height="wrap_content"
         android:text="logout" />
 
+    <Button
+        android:id="@+id/PhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="photo" />
+
 </LinearLayout>
