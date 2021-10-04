@@ -37,7 +37,7 @@
             android:layout_marginBottom="30dp"
             android:background="#80FFFFFF"
             android:ems="10"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp" />
@@ -50,7 +50,7 @@
             android:layout_marginBottom="30dp"
             android:background="#80FFFFFF"
             android:ems="10"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingLeft="10dp" />
@@ -63,7 +63,7 @@
             android:layout_marginBottom="30dp"
             android:background="#80FFFFFF"
             android:ems="10"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:hint="CheckPassword"
             android:inputType="textPassword"
             android:paddingLeft="10dp" />
@@ -74,7 +74,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="#80FFFFFF"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:text="Sign Up"
             android:textColor="#000000" />
 
@@ -95,7 +95,7 @@
             android:id="@+id/GotoLoginText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_bold"
             android:gravity="center"
             android:text="Go to SignUp"
             android:textColor="#000000"

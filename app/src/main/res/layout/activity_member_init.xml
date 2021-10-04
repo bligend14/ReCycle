@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,7 +9,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:fontFamily="casual"
         android:gravity="center|bottom"
         android:text="Re-Cycle"
@@ -21,12 +22,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="50dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/cameraImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+        </androidx.cardview.widget.CardView>
 
         <EditText
             android:id="@+id/NameEditText"
@@ -36,7 +51,7 @@
             android:layout_marginBottom="30dp"
             android:background="#80FFFFFF"
             android:ems="10"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:hint="Name"
             android:inputType="textPersonName"
             android:paddingLeft="10dp" />
@@ -49,7 +64,7 @@
             android:layout_marginBottom="30dp"
             android:background="#80FFFFFF"
             android:ems="10"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:hint="Birthday"
             android:inputType="date"
             android:paddingLeft="10dp" />
@@ -62,7 +77,7 @@
             android:layout_marginBottom="30dp"
             android:background="#80FFFFFF"
             android:ems="10"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:hint="PhoneNumber"
             android:inputType="phone"
             android:paddingLeft="10dp" />
@@ -73,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#80FFFFFF"
-            android:fontFamily="casual"
+            android:fontFamily="@font/spoqahansansneo_medium"
             android:text="confirmed"
             android:textAllCaps="false"
             android:textColor="#000" />

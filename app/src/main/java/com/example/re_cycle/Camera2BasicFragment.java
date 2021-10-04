@@ -254,19 +254,11 @@ public class Camera2BasicFragment extends Fragment
      */
     private File mFile;
 
-    /**
-     * This a callback object for the {@link ImageReader}. "onImageAvailable" will be called when a
-     * still image is ready to be saved.
-     */
-    private final ImageReader.OnImageAvailableListener mOnImageAvailableListener
-            = new ImageReader.OnImageAvailableListener() {
-
-        @Override
-        public void onImageAvailable(ImageReader reader) {
-            mBackgroundHandler.post(new imageUploader(reader.acquireNextImage()));
-        }
-
-    };
+    private ImageReader.OnImageAvailableListener mOnImageAvailableListener;
+    public void setOnImageAvailableListener(ImageReader.OnImageAvailableListener mOnImageAvailableListener)
+    {
+        this.mOnImageAvailableListener = mOnImageAvailableListener;
+    }
 
     /**
      * {@link CaptureRequest.Builder} for the camera preview
@@ -529,10 +521,12 @@ public class Camera2BasicFragment extends Fragment
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                 if (facing != null && facing == facingId)
                 {
+                    Log.e("map","Null값이 들어오지 않음");
                     StreamConfigurationMap map = characteristics.get(
                             CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                     if (map == null)
                     {
+                        Log.e("map","Null값이 들어옴");
                         continue;
                     }
 
@@ -670,7 +664,7 @@ public class Camera2BasicFragment extends Fragment
     /**
      * Closes the current {@link CameraDevice}.
      */
-    private void closeCamera() {
+    public void closeCamera() {
         try {
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
@@ -948,13 +942,16 @@ public class Camera2BasicFragment extends Fragment
                 break;
 
             case R.id.changeCamera:
-                if (facingid == CameraCharacteristics.LENS_FACING_FRONT)
+                Log.e("facingid", String.valueOf(facingid));
+                if (facingid == CameraCharacteristics.LENS_FACING_FRONT || facingid == CameraCharacteristics.LENS_FACING_EXTERNAL)
                 {
                     facingid = CameraCharacteristics.LENS_FACING_BACK;
+                    Log.e("facingid", String.valueOf(facingid));
                 }
                 else
                 {
                     facingid = CameraCharacteristics.LENS_FACING_FRONT;
+                    Log.e("facingid", String.valueOf(facingid));
                 }
                 closeCamera();
                 openCamera(mTextureView.getWidth(), mTextureView.getHeight());
@@ -1011,76 +1008,6 @@ public class Camera2BasicFragment extends Fragment
                     }
                 }
             }
-        }
-
-    }
-
-    /**
-     * Saves a JPEG {@link Image} into the specified {@link File}.
-     */
-    private class imageUploader implements Runnable
-    {
-
-        /**
-         * The JPEG image
-         */
-        private final Image mImage;
-        /**
-         * The file we save the image into.
-         */
-        imageUploader(Image image) {
-            mImage = image;
-        }
-
-        @Override
-        public void run()
-        {
-            ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
-            byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            // Create a storage reference from our app
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://recycle-37678.appspot.com/");
-
-            // Create a reference to 'images/mountains.jpg'
-            final StorageReference mountainImagesRef = storageRef.child("Users/"+user.getUid()+"/profileImage.jpg");
-
-            UploadTask uploadTask = mountainImagesRef.putBytes(bytes);
-
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
-            {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
-                {
-                    if (!task.isSuccessful())
-                    {
-                        Log.e("실패1","실패");
-                        throw task.getException();
-                    }
-
-                    // Continue with the task to get the download URL
-                    return mountainImagesRef.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>()
-            {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task)
-                {
-                    if (task.isSuccessful())
-                    {
-                        Uri downloadUri = task.getResult();
-                        Log.e("성공", "성공:" + downloadUri);
-                    }
-                    else
-                    {
-                        Log.e("실패2","실패");
-                        // Handle failures
-                        // ...
-                    }
-                }
-            });
         }
 
     }

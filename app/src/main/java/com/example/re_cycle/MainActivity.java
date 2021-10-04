@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null)
         {
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
+            GotoActivity(Member_initActivity.class);
+
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference docRef = db.collection("Users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
@@ -50,18 +52,18 @@ public class MainActivity extends AppCompatActivity
                         {
                             if (document.exists())
                             {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                Log.e(TAG, "DocumentSnapshot data: " + document.getData());
                             }
                             else
                             {
-                                Log.d(TAG, "No such document");
+                                Log.e(TAG, "No such document");
                                 GotoActivity(Member_initActivity.class);
                             }
                         }
                     }
                     else
                     {
-                        Log.d(TAG, "get failed with ", task.getException());
+                        Log.e(TAG, "get failed with ", task.getException());
                     }
                 }
             });

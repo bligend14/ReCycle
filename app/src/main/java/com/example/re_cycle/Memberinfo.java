@@ -5,12 +5,14 @@ public class Memberinfo
     private String name;
     private String birthday;
     private String phone;
+    private String photoUrl;
 
-    public Memberinfo(String name, String birthday, String phonenumber)
+    public Memberinfo(String name, String birthday, String phonenumber, String photoUrl)
     {
         this.name = name;
         this.birthday = birthday;
         this.phone = phonenumber;
+        this.photoUrl = photoUrl;
     }
 
     public String getname()
@@ -38,6 +40,15 @@ public class Memberinfo
     public void setPhonenumber(String phonenumber)
     {
         this.phone = phonenumber;
+    }
+
+    public String getPhotoUrl()
+    {
+        return this.photoUrl;
+    }
+    public void setPhotoUrl(String photoUrl)
+    {
+        this.photoUrl = photoUrl;
     }
 
 }
