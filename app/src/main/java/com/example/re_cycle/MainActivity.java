@@ -30,16 +30,14 @@ public class MainActivity extends AppCompatActivity
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user == null)
+        if(user == null)
         {
-           GotoActivity(loginActivity.class);
+            GotoActivity(SignUpActivity.class);
         }
         else
-        {
-            GotoActivity(Member_initActivity.class);
-
+            {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference docRef = db.collection("Users").document(user.getUid());
+            DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
             {
                 @Override
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity
                     if (task.isSuccessful())
                     {
                         DocumentSnapshot document = task.getResult();
-                        if (document != null)
+                        if(document != null)
                         {
                             if (document.exists())
                             {
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                     else
-                    {
+                        {
                         Log.e(TAG, "get failed with ", task.getException());
                     }
                 }
@@ -70,25 +68,20 @@ public class MainActivity extends AppCompatActivity
         }
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
-        findViewById(R.id.PhotoButton).setOnClickListener(onClickListener);
     }
 
-    View.OnClickListener onClickListener = new View.OnClickListener()
-    {
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
-            switch (v.getId())
-            {
+        public void onClick(View v) {
+            switch (v.getId()){
                 case R.id.logoutButton:
                     FirebaseAuth.getInstance().signOut();
-                    GotoActivity(loginActivity.class);
+                    GotoActivity(SignUpActivity.class);
                     break;
-                case  R.id.PhotoButton:
-                    GotoActivity(CameraActivity.class);
             }
         }
     };
+
 
 
     private void  GotoActivity(Class I)

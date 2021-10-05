@@ -44,7 +44,7 @@ import java.util.Arrays;
 public class Member_initActivity extends AppCompatActivity
 {
     private static final String TAG = "MemberinitActivity";
-    private ImageView porfile_imageview;
+    private ImageView profile_imageview;
     private String profilePath;
 
     @Override
@@ -53,10 +53,10 @@ public class Member_initActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_init);
 
-        porfile_imageview = findViewById(R.id.cameraImageView);
-        porfile_imageview.setOnClickListener(onClickListener);//사진 이미지뷰 id 찾아오기
+        profile_imageview = findViewById(R.id.cameraImageView);//사진 이미지뷰 id 찾아오기
+        profile_imageview.setOnClickListener(onClickListener);//확인 버튼 id 찾아오기
 
-        findViewById(R.id.confirmedButton).setOnClickListener(onClickListener);//확인 버튼 id 찾아오기
+        findViewById(R.id.confirmedButton).setOnClickListener(onClickListener);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class Member_initActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode,int resultCode ,Intent data)
     {
-        super.onActivityResult(requestCode,resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode)
         {
             case 0 :
@@ -135,7 +135,7 @@ public class Member_initActivity extends AppCompatActivity
                                 ExifInterface.ORIENTATION_UNDEFINED);
                         Bitmap bmRotated = rotateBitmap(bmp, orientation);//이미지 회전
 
-                        porfile_imageview.setImageBitmap(bmRotated);
+                        profile_imageview.setImageBitmap(bmRotated);
 
                         Log.e("profilePath","profilePath:"+ profilePath);
 
@@ -167,32 +167,29 @@ public class Member_initActivity extends AppCompatActivity
     private void  profileUpdate()
     {
         final String name = ((EditText) findViewById(R.id.NameEditText)).getText().toString();
-        final String birthday = ((EditText) findViewById(R.id.BirthdayEditText)).getText().toString();
-        final String phonenumber = ((EditText) findViewById(R.id.Phonnumber_EditTest)).getText().toString();
+        final String phoneNumber = ((EditText) findViewById(R.id.Phonnumber_EditTest)).getText().toString();
+        final String birthDay = ((EditText) findViewById(R.id.BirthdayEditText)).getText().toString();
 
-        if (name.length() > 0)
+        if (name.length() > 0 && phoneNumber.length() > 9 && birthDay.length() > 5)
         {
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();// Create a storage reference from our app
+            StorageReference storageRef = storage.getReference();
 
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            final StorageReference mountainImagesRef = storageRef.child("Users/"+user.getUid()+"/profileImage.jpg"); // Create a reference to 'images/mountains.jpg'
+            final StorageReference mountainImagesRef = storageRef.child("users/" + user.getUid() + "/profileImage.jpg");
 
             try
             {
                 InputStream stream = new FileInputStream(new File(profilePath));
                 UploadTask uploadTask = mountainImagesRef.putStream(stream);
-                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
-                {
+                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
                     {
                         if (!task.isSuccessful())
                         {
-                            Log.e("실패1","실패");
                             throw task.getException();
                         }
-                        // Continue with the task to get the download URL
                         return mountainImagesRef.getDownloadUrl();
                     }
                 }).addOnCompleteListener(new OnCompleteListener<Uri>()
@@ -200,20 +197,19 @@ public class Member_initActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<Uri> task)
                     {
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            Memberinfo info = new Memberinfo(name, birthday, phonenumber,downloadUri.toString());
-                            db.collection("users").document(user.getUid()).set(info)
+                            Memberinfo memberInfo = new Memberinfo(name, phoneNumber, birthDay, downloadUri.toString());
+                            db.collection("users").document(user.getUid()).set(memberInfo)
                                     .addOnSuccessListener(new OnSuccessListener<Void>()
                                     {
                                         @Override
                                         public void onSuccess(Void aVoid)
                                         {
                                             toast("회원정보 등록을 성공하였습니다.");
-                                            // GotoActivity(MainActivity.class);
                                             finish();
+                                            GotoActivity(MainActivity.class);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener()
@@ -228,22 +224,19 @@ public class Member_initActivity extends AppCompatActivity
                         }
                         else
                         {
-                            Log.e("실패2","실패");
-                            // Handle failures
-                            // ...
+                            Log.e("로그", "실패");
                         }
                     }
                 });
             }
             catch (FileNotFoundException e)
             {
-                Log.e("로그","에러:"+e.toString());
+                Log.e("로그", "에러: " + e.toString());
             }
-
         }
         else
         {
-            toast("필수정보를 입력해 주세요");
+            toast("회원정보를 입력해주세요.");
         }
     }
 
