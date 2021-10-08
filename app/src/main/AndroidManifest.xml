@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.re_cycle">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofoxcus" />
@@ -16,28 +20,33 @@
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:targetApi="q">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="@string/permissions_loader_meta_key"
+                android:value="android.permission.READ_EXTERNAL_STORAGE"/>
+
         </activity>
 
-        <activity android:name=".SignUpActivity">
+        <activity android:name=".activity.SignUpActivity">
         </activity>
 
-        <activity android:name=".loginActivity">
+        <activity android:name=".activity.loginActivity">
         </activity>
 
-        <activity android:name=".Password_ResetActivity">
+        <activity android:name=".activity.Password_ResetActivity">
         </activity>
 
-        <activity android:name=".Member_initActivity">
+        <activity android:name=".activity.Member_initActivity">
         </activity>
 
-        <activity android:name=".CameraActivity">
+        <activity android:name=".activity.CameraActivity">
         </activity>
 
     </application>

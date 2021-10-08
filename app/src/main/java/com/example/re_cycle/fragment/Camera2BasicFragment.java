@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.re_cycle;
+package com.example.re_cycle.fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -41,7 +41,6 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import android.os.Handler;
@@ -61,17 +60,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.example.re_cycle.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -84,6 +73,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+
+import com.example.re_cycle.view.AutoFitTextureView;
 
 public class Camera2BasicFragment extends Fragment
         implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -379,15 +370,15 @@ public class Camera2BasicFragment extends Fragment
 
     /**
      * Given {@code choices} of {@code Size}s supported by a camera, choose the smallest one that
-     * is at least as large as the respective texture view size, and that is at most as large as the
+     * is at least as large as the respective texture com.example.re_cycle.view size, and that is at most as large as the
      * respective max size, and whose aspect ratio matches with the specified value. If such size
      * doesn't exist, choose the largest one that is at most as large as the respective max size,
      * and whose aspect ratio matches with the specified value.
      *
      * @param choices           The list of sizes that the camera supports for the intended output
      *                          class
-     * @param textureViewWidth  The width of the texture view relative to sensor coordinate
-     * @param textureViewHeight The height of the texture view relative to sensor coordinate
+     * @param textureViewWidth  The width of the texture com.example.re_cycle.view relative to sensor coordinate
+     * @param textureViewHeight The height of the texture com.example.re_cycle.view relative to sensor coordinate
      * @param maxWidth          The maximum width that can be chosen
      * @param maxHeight         The maximum height that can be chosen
      * @param aspectRatio       The aspect ratio

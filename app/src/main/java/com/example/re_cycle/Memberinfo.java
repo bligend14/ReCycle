@@ -15,6 +15,15 @@ public class Memberinfo
         this.photoUrl = photoUrl;
     }
 
+
+    public Memberinfo(String name, String birthday, String phonenumber)
+    {
+        this.name = name;
+        this.birthday = birthday;
+        this.phone = phonenumber;
+        this.photoUrl = photoUrl;
+    }
+
     public String getname()
     {
         return this.name;

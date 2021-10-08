@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.re_cycle;
+package com.example.re_cycle.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,6 +24,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.re_cycle.R;
+import com.example.re_cycle.fragment.Camera2BasicFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
